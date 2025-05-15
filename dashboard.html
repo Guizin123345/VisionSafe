@@ -63,10 +63,8 @@
 
   <script src="dashboard.js"></script>
   <script>
-    // Atualiza data atual
     document.getElementById('current-date').innerText = new Date().toLocaleString('pt-BR');
 
-    // Simulação: Verificar se o sistema está ativo via API (exemplo de fetch)
     fetch('/status')
       .then(response => response.json())
       .then(data => {

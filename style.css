@@ -28,10 +28,10 @@ body {
 }
 
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1100px;
   margin: auto;
-  padding: 0 20px;
+  padding-inline: 30px;
 }
 
 /* ===== HEADER E MENU ===== */
@@ -96,6 +96,7 @@ nav {
   text-decoration: none;
   font-weight: 600;
   transition: var(--transicao);
+  margin-left: auto;
 }
 
 .btn-login i {
@@ -118,16 +119,18 @@ nav {
 
 /* ===== SEÇÕES ===== */
 section {
-  padding: 60px 30px;
-  margin-bottom: 40px;
-  animation: fadeIn 1s ease both;
+  padding: 50px 30px;
+  margin: 60px auto;
   border-radius: var(--raio-borda);
+  background-color: var(--branco);
   box-shadow: var(--sombra-suave);
+  animation: fadeIn 1s ease both;
+  max-width: 1100px;
 }
 
 .home {
-  background: var(--azul-gradiente);
-  color: white;
+  background: var(--branco);
+  color: var(--texto);
   text-align: center;
   padding: 100px 20px;
 }
@@ -152,27 +155,6 @@ h2::after {
   background: var(--amarelo);
   display: block;
   margin-top: 10px;
-}
-
-/* ===== FUNDO DAS SEÇÕES ===== */
-.sobre {
-  background-color: var(--branco);
-}
-
-.quem-somos {
-  background-color: var(--cinza-claro);
-}
-
-.beneficios {
-  background-color: var(--branco);
-}
-
-.aplicacoes {
-  background-color: var(--cinza-claro);
-}
-
-.contato {
-  background-color: var(--branco);
 }
 
 /* ===== LISTAS ===== */
@@ -253,11 +235,49 @@ form button:hover {
 /* ===== IMAGENS ===== */
 .img-section {
   width: 100%;
-  max-width: 600px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  max-width: 960px;
   margin: 30px auto 0;
   display: block;
   border-radius: var(--raio-borda);
   box-shadow: var(--sombra-suave);
+}
+
+/* ===== FLEX CONTEÚDO ===== */
+.container-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  background-color: var(--branco);
+  border-radius: var(--raio-borda);
+  padding: 40px;
+  box-shadow: var(--sombra-suave);
+  margin-bottom: 40px;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.container-flex .texto {
+  flex: 1 1 50%;
+}
+
+.container-flex .imagem {
+  flex: 1 1 40%;
+}
+
+.container-flex .imagem img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-suave);
+}
+
+.container-flex.reverse {
+  flex-direction: row-reverse;
 }
 
 /* ===== RODAPÉ ===== */
@@ -266,7 +286,7 @@ footer {
   color: white;
   text-align: center;
   padding: 20px 0;
-  margin-top: 40px;
+  margin-top: 60px;
   border-radius: var(--raio-borda);
 }
 
@@ -333,40 +353,7 @@ footer {
   .logo {
     margin-bottom: 10px;
   }
-}
 
-.container-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-  background-color: var(--branco);
-  border-radius: var(--raio-borda);
-  padding: 40px;
-  box-shadow: var(--sombra-suave);
-  margin-bottom: 40px;
-}
-
-.container-flex .texto {
-  flex: 1 1 50%;
-}
-
-.container-flex .imagem {
-  flex: 1 1 40%;
-}
-
-.container-flex .imagem img {
-  width: 100%;
-  border-radius: var(--raio-borda);
-  box-shadow: var(--sombra-suave);
-}
-
-.container-flex.reverse {
-  flex-direction: row-reverse;
-}
-
-@media (max-width: 768px) {
   .container-flex,
   .container-flex.reverse {
     flex-direction: column;
@@ -376,5 +363,14 @@ footer {
   .container-flex .imagem,
   .container-flex .texto {
     flex: 1 1 100%;
+  }
+
+  .container {
+    padding-inline: 20px;
+  }
+
+  section {
+    padding: 40px 20px;
+    margin: 40px 0;
   }
 }

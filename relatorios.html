@@ -50,7 +50,6 @@
             </tr>
           </thead>
           <tbody id="report-body">
-            <!-- Relatórios serão inseridos aqui -->
           </tbody>
         </table>
         <button onclick="gerarPDF()">Gerar PDF</button>
@@ -63,7 +62,6 @@
       document.getElementById('sidebar').classList.toggle('active');
     }
 
-    // Simulação de dados de violação
     const dados = [
       { data: "2025-05-01", tipo: "Sem Capacete", qtd: 4 },
       { data: "2025-05-02", tipo: "Sem Colete", qtd: 2 },
@@ -105,7 +103,6 @@
       html2pdf().set(opt).from(relatorio).save();
     }
 
-    // Carrega dados inicialmente
     window.onload = filtrarRelatorio;
   </script>
 

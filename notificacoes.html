@@ -35,7 +35,6 @@
       </section>
 
       <div id="notifications" class="notification-list">
-        <!-- As notificações aparecerão aqui -->
       </div>
     </main>
   </div>
@@ -82,7 +81,7 @@
           card.appendChild(time);
           card.appendChild(img);
 
-          notifications.prepend(card); // Adiciona no topo
+          notifications.prepend(card);
         };
 
         ws.onclose = () => {
