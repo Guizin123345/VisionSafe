@@ -49,9 +49,9 @@
               <th>Quantidade</th>
             </tr>
           </thead>
-          <tbody id="report-body">
-          </tbody>
+          <tbody id="report-body"></tbody>
         </table>
+        <div id="totais" style="margin-top: 20px;"></div>
         <button onclick="gerarPDF()">Gerar PDF</button>
       </section>
     </main>
@@ -62,19 +62,23 @@
       document.getElementById('sidebar').classList.toggle('active');
     }
 
+    // Simulação de dados reais do backend
     const dados = [
       { data: "2025-05-01", tipo: "Sem Capacete", qtd: 4 },
       { data: "2025-05-02", tipo: "Sem Colete", qtd: 2 },
       { data: "2025-05-03", tipo: "Sem Capacete", qtd: 1 },
-      { data: "2025-05-04", tipo: "Sem Capacete", qtd: 3 },
+      { data: "2025-05-04", tipo: "Sem Colete", qtd: 3 },
+      { data: "2025-05-04", tipo: "Sem Capacete", qtd: 2 },
     ];
 
     function filtrarRelatorio() {
       const inicio = document.getElementById("date-start").value;
       const fim = document.getElementById("date-end").value;
       const tbody = document.getElementById("report-body");
+      const totaisDiv = document.getElementById("totais");
 
       tbody.innerHTML = "";
+      totaisDiv.innerHTML = "";
 
       const filtrado = dados.filter(item => {
         return (!inicio || item.data >= inicio) && (!fim || item.data <= fim);
@@ -85,17 +89,32 @@
         return;
       }
 
+      // Agrupamento por data e tipo
       filtrado.forEach(item => {
         const row = `<tr><td>${item.data}</td><td>${item.tipo}</td><td>${item.qtd}</td></tr>`;
         tbody.insertAdjacentHTML('beforeend', row);
       });
+
+      // Totais por tipo
+      const totais = {};
+      filtrado.forEach(item => {
+        if (!totais[item.tipo]) totais[item.tipo] = 0;
+        totais[item.tipo] += item.qtd;
+      });
+
+      let resumo = "<h3>Totais por Tipo de Violação:</h3><ul>";
+      for (const tipo in totais) {
+        resumo += `<li><strong>${tipo}</strong>: ${totais[tipo]}</li>`;
+      }
+      resumo += "</ul>";
+      totaisDiv.innerHTML = resumo;
     }
 
     function gerarPDF() {
       const relatorio = document.getElementById("report-section");
       const opt = {
         margin: 0.5,
-        filename: `relatorio_visionsafe_${Date.now()}.pdf`,
+        filename: `relatorio_visionsafe_${new Date().toISOString().split('T')[0]}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }

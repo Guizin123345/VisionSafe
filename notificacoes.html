@@ -34,75 +34,112 @@
         <p>Esta seção mostra alertas em tempo real de colaboradores sem o uso correto do EPI.</p>
       </section>
 
-      <div id="notifications" class="notification-list">
-      </div>
+      <div id="notifications" class="notification-list"></div>
     </main>
+  </div>
+
+  <div id="imageModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="fecharModal()">×</button>
+      <img id="modalImage" src="" alt="Imagem em tela cheia">
+      <div class="modal-info">
+        <h3 id="modalClassName"></h3>
+        <p id="modalTimestamp"></p>
+      </div>
+    </div>
   </div>
 
   <script>
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('active');
+      document.getElementById('sidebar').classList.toggle('active');
     }
 
     let ws;
+
+    function exibirNotificacao(className, timestamp, imageSrc) {
+      const notifications = document.getElementById('notifications');
+
+      const card = document.createElement('div');
+      card.className = 'notification-card';
+
+      const title = document.createElement('h3');
+      title.innerText = `⚠️ Alerta: ${className} detectado`;
+
+      const time = document.createElement('p');
+      time.className = 'notification-time';
+      time.innerText = timestamp;
+
+      const img = document.createElement('img');
+      img.src = imageSrc;
+      img.alt = "Imagem da violação";
+      img.className = 'notification-image';
+      img.style.cursor = "pointer";
+
+      img.addEventListener('click', () => {
+        abrirModal(imageSrc, className, timestamp);
+      });
+
+      card.appendChild(title);
+      card.appendChild(time);
+      card.appendChild(img);
+
+      notifications.prepend(card);
+    }
+
+    function abrirModal(src, className, timestamp) {
+      document.getElementById('modalImage').src = src;
+      document.getElementById('modalClassName').innerText = `⚠️ Alerta: ${className} detectado`;
+      document.getElementById('modalTimestamp').innerText = timestamp;
+      document.getElementById('imageModal').style.display = 'flex';
+    }
+
+    function fecharModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    function carregarNotificacoesAnteriores() {
+      fetch('/notifications')
+        .then(res => res.json())
+        .then(dados => {
+          dados.forEach(n => {
+            const imgPath = `/violations/${n.filename}`;
+            exibirNotificacao(n.class_name, n.timestamp, imgPath);
+          });
+        })
+        .catch(err => console.error('Erro ao carregar notificações:', err));
+    }
 
     function connectWebSocket() {
       if (!ws || ws.readyState === WebSocket.CLOSED) {
         ws = new WebSocket('ws://127.0.0.1:8000/ws');
 
         ws.onopen = () => {
-          const status = document.createElement('p');
-          status.innerText = "Conectado ao WebSocket!";
-          status.style.color = "green";
-          document.getElementById('notifications').appendChild(status);
+          console.log("WebSocket conectado.");
         };
 
         ws.onmessage = (event) => {
-          const notifications = document.getElementById('notifications');
           const data = JSON.parse(event.data);
-
-          const card = document.createElement('div');
-          card.className = 'notification-card';
-
-          const title = document.createElement('h3');
-          title.innerText = `⚠️ Alerta: ${data.class_name} detectado`;
-
-          const time = document.createElement('p');
-          time.className = 'notification-time';
-          time.innerText = new Date().toLocaleString('pt-BR');
-
-          const img = document.createElement('img');
-          img.src = `data:image/jpeg;base64,${data.image}`;
-          img.alt = "Imagem da violação";
-          img.className = 'notification-image';
-
-          card.appendChild(title);
-          card.appendChild(time);
-          card.appendChild(img);
-
-          notifications.prepend(card);
+          const timestamp = new Date().toLocaleString('pt-BR');
+          const imgSrc = `data:image/jpeg;base64,${data.image}`;
+          exibirNotificacao(data.class_name, timestamp, imgSrc);
         };
 
         ws.onclose = () => {
-          const msg = document.createElement('p');
-          msg.innerText = "WebSocket desconectado.";
-          msg.style.color = "gray";
-          document.getElementById('notifications').appendChild(msg);
+          console.warn("WebSocket desconectado.");
         };
 
         ws.onerror = (error) => {
-          const msg = document.createElement('p');
-          msg.innerText = "Erro no WebSocket.";
-          msg.style.color = "red";
-          document.getElementById('notifications').appendChild(msg);
-          console.error(error);
+          console.error("Erro no WebSocket:", error);
         };
       }
     }
 
-    window.onload = connectWebSocket;
+    window.onload = () => {
+      connectWebSocket();
+      carregarNotificacoesAnteriores();
+    };
   </script>
+
   <script src="dashboard.js"></script>
 </body>
 </html>

@@ -10,3 +10,4 @@ function toggleSidebar() {
         mainContent.style.marginLeft = "250px";
     }
 }
+

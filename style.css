@@ -34,11 +34,10 @@ body {
   padding-inline: 30px;
 }
 
-/* ===== HEADER E MENU ===== */
 header {
   background-color: var(--azul-principal);
   color: white;
-  padding: 15px 0;
+  padding: 10px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -50,27 +49,29 @@ header {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .logo img {
   width: 110px;
   transition: transform 0.3s;
 }
-
 .logo img:hover {
   transform: scale(1.05);
 }
 
 nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   flex-grow: 1;
-  margin-left: 30px;
+  flex-wrap: wrap;
 }
 
 .menu {
   display: flex;
   list-style: none;
   gap: 20px;
-  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
@@ -82,7 +83,6 @@ nav {
   border-radius: 4px;
   transition: var(--transicao);
 }
-
 .menu a:hover {
   background-color: var(--azul-escuro);
   transform: translateY(-2px);
@@ -91,20 +91,19 @@ nav {
 .btn-login {
   background-color: var(--amarelo);
   color: var(--azul-principal);
-  padding: 8px 15px;
+  padding: 6px 12px;
+  font-size: 14px;
   border-radius: var(--raio-borda);
   text-decoration: none;
   font-weight: 600;
   transition: var(--transicao);
-  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
-
 .btn-login i {
   margin-right: 6px;
   font-size: 16px;
-  vertical-align: middle;
 }
-
 .btn-login:hover {
   background-color: #eab308;
   transform: scale(1.05);
@@ -117,7 +116,6 @@ nav {
   color: white;
 }
 
-/* ===== SEÇÕES ===== */
 section {
   padding: 50px 30px;
   margin: 60px auto;
@@ -134,7 +132,6 @@ section {
   text-align: center;
   padding: 100px 20px;
 }
-
 .home h1 {
   font-size: 36px;
   margin-bottom: 20px;
@@ -144,10 +141,9 @@ section {
 h2 {
   font-size: 28px;
   margin-bottom: 20px;
-  color: var(--azul-principal);
+  color: black;
   position: relative;
 }
-
 h2::after {
   content: '';
   width: 60px;
@@ -157,94 +153,48 @@ h2::after {
   margin-top: 10px;
 }
 
-/* ===== LISTAS ===== */
-.beneficios ul,
-.aplicacoes ul {
-  list-style: none;
-  padding-left: 0;
+.tabela-jogo {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+.tabela-jogo th,
+.tabela-jogo td {
+  border: 1px solid var(--cinza-medio);
+  padding: 10px;
+  text-align: center;
+}
+.tabela-jogo th {
+  background-color: var(--cinza-claro);
+  color: black;
+}
+.tabela-jogo td img {
+  width: 40px;
+  height: auto;
 }
 
-.beneficios li,
-.aplicacoes li {
-  margin: 12px 0;
-  font-size: 17px;
+.time-atual {
+  background-color: var(--branco);
+  border-radius: var(--raio-borda);
+  padding: 20px;
+  box-shadow: var(--sombra-suave);
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.time-atual .logo {
+  max-width: 100px;
+  margin: 10px;
+}
+.time-atual .placar {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--azul-principal);
+  margin: 10px;
 }
 
-.beneficios li i,
-.aplicacoes li i {
-  color: var(--amarelo);
-  margin-right: 10px;
-  font-size: 18px;
-}
-
-/* ===== FORMULÁRIO DE CONTATO ===== */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: var(--branco);
-  padding: 30px;
-  border-radius: var(--raio-borda);
-  box-shadow: var(--sombra-suave);
-  animation: fadeInUp 0.8s ease;
-}
-
-form input,
-form textarea {
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-  font-family: inherit;
-  resize: vertical;
-  transition: border-color 0.3s;
-}
-
-form input:focus,
-form textarea:focus {
-  border-color: var(--azul-principal);
-  outline: none;
-}
-
-form textarea {
-  min-height: 120px;
-}
-
-form button {
-  background-color: var(--azul-principal);
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  font-size: 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  width: fit-content;
-  align-self: flex-end;
-  transition: var(--transicao);
-}
-
-form button:hover {
-  background-color: var(--azul-escuro);
-  transform: translateY(-2px);
-}
-
-/* ===== IMAGENS ===== */
-.img-section {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  max-width: 960px;
-  margin: 30px auto 0;
-  display: block;
-  border-radius: var(--raio-borda);
-  box-shadow: var(--sombra-suave);
-}
-
-/* ===== FLEX CONTEÚDO ===== */
 .container-flex {
   display: flex;
   align-items: center;
@@ -259,15 +209,12 @@ form button:hover {
   max-width: 1100px;
   margin-inline: auto;
 }
-
 .container-flex .texto {
   flex: 1 1 50%;
 }
-
 .container-flex .imagem {
   flex: 1 1 40%;
 }
-
 .container-flex .imagem img {
   width: 100%;
   max-height: 400px;
@@ -275,12 +222,68 @@ form button:hover {
   border-radius: var(--raio-borda);
   box-shadow: var(--sombra-suave);
 }
-
 .container-flex.reverse {
   flex-direction: row-reverse;
 }
 
-/* ===== RODAPÉ ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--branco);
+  padding: 30px;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-suave);
+  animation: fadeInUp 0.8s ease;
+}
+form input,
+form textarea {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+form input:focus,
+form textarea:focus {
+  border-color: var(--azul-principal);
+  outline: none;
+}
+form textarea {
+  min-height: 120px;
+}
+form button {
+  background-color: var(--azul-principal);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: fit-content;
+  align-self: flex-end;
+  transition: var(--transicao);
+}
+form button:hover {
+  background-color: var(--azul-escuro);
+  transform: translateY(-2px);
+}
+
+.img-section {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  max-width: 960px;
+  margin: 30px auto 0;
+  display: block;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-suave);
+}
+
 footer {
   background-color: var(--azul-principal);
   color: white;
@@ -290,35 +293,19 @@ footer {
   border-radius: var(--raio-borda);
 }
 
-/* ===== ANIMAÇÕES ===== */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-/* ===== RESPONSIVO ===== */
 @media (max-width: 768px) {
   .nav-container {
     flex-direction: column;
@@ -344,14 +331,18 @@ footer {
   .btn-login {
     align-self: flex-end;
     margin-top: 10px;
+    font-size: 13px;
+    padding: 6px 10px;
   }
 
   nav {
     width: 100%;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .logo {
-    margin-bottom: 10px;
+    display: none;
   }
 
   .container-flex,
@@ -372,5 +363,21 @@ footer {
   section {
     padding: 40px 20px;
     margin: 40px 0;
+  }
+
+  .time-atual {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tabela-jogo {
+    font-size: 14px;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .tabela-jogo th,
+  .tabela-jogo td {
+    padding: 8px;
   }
 }
